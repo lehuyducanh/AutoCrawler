@@ -3,7 +3,7 @@ const fs = require('fs');
 
 async function run() {
 	const chromeless = new Chromeless({
-		lauchChrome: false,
+		launchChrome: false,
 		waitTimeout: 600000
 		});
    
