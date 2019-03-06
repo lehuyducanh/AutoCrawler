@@ -1,6 +1,6 @@
 const { Chromeless } = require('chromeless');
 const fs = require('fs');
-var BDSLink = fs.readFileSync('LinkBDS5.txt').toString().split("\n");
+var ViCareHNLink = fs.readFileSync('LinkViCareHN.txt').toString().split("\n");
 
 async function run() {
   const chromeless = new Chromeless({
@@ -19,12 +19,7 @@ async function run() {
         )
         return moigioi
       })
-      for (var x = 0; x < moigioi.length; x++){
-        moigioi[x] = moigioi[x].replace(/\n/g,'') + '|'
-        moigioi[x] = moigioi[x].replace('</a><noscript><em>Địa chỉ email này được bảo vệ bởi JavaScript.<BR>Bạn cần kích hoạt Javascript để có thể xem.</em></noscript>|','')
-        moigioi[x] = moigioi[x].replace('<script type="text/javascript"><!--document.write("<a rel=\'nofollow\' href=\'mailto:','')
-      }
-
+  
     const danhmuc = await chromeless
       .evaluate(() => {
         const danhmuc = [].map.call(

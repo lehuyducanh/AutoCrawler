@@ -3,14 +3,14 @@ const fs = require('fs');
 
 async function run() {
 	const chromeless = new Chromeless({
-		launchChrome: true,
+		launchChrome: false,
 		waitTimeout: 600000
 		});
    
 var content = "";
-for(var i = 1; i<=1000; i++){
+for(var i = 1; i<=2; i++){
   const links = await chromeless
-  .goto('https://vicare.vn/danh-sach/ha-noi/?page='+i)
+  .goto('https://vicare.vn/danh-sach/ca-nuoc/?page='+i)
   .evaluate(() => {
       const links = [].map.call(
       document.querySelectorAll('.info h2 a'),
@@ -21,7 +21,7 @@ for(var i = 1; i<=1000; i++){
      content += links; 
 }
 	
-	fs.writeFileSync('LinkViCareHN.txt', content);
+	fs.writeFileSync('LinkViCare1.txt', content);
 	
 	await chromeless.end();
 }
