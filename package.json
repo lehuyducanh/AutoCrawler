@@ -5,7 +5,8 @@
   "main": "demo.js",
   "dependencies": {
     "chromeless": "^1.5.2",
-    "exceljs": "^1.7.0"
+    "exceljs": "^1.7.0",
+    "puppeteer": "^1.13.0"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
