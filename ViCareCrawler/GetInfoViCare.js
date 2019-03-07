@@ -8,48 +8,42 @@ async function run() {
     waitTimeout: 60000000
   });
   var content = "";
-  var quanly = "";
-  for (var i = 0; i <= 1000; i++) {
-    const moigioi = await chromeless
-      .goto(BDSLink[i])
-      .evaluate(() => {
-        const moigioi = [].map.call(
-          document.querySelectorAll('.div-table-cell.table2 .table-detail .right'),
-          a => a.innerHTML
-        )
-        return moigioi
-      })
-  
-    const danhmuc = await chromeless
-      .evaluate(() => {
-        const danhmuc = [].map.call(
-          document.querySelectorAll('.div-table-cell.table1 .table-detail .right'),
-          a => a.innerHTML
-        )
-        return danhmuc
-      })
-      for (var x = 0; x < danhmuc.length; x++){
-        danhmuc[x] = danhmuc[x].replace(/\n/g,'') + '|'
-      }
 
-      const title = await chromeless
+  for (var i = 0; i < ViCareHNLink.length; i++) {
+    const TenCoSo = await chromeless
+      .goto(ViCareHNLink[i])
       .evaluate(() => {
-        const title = [].map.call(
-          document.querySelectorAll('.pm-title'),
+        const TenCoSo = [].map.call(
+          document.querySelectorAll('.body h1 span'),
+          a => a.innerHTML
+        )
+        return TenCoSo
+      })
+
+    const PhoneNumber = await chromeless
+      .evaluate(() => {
+        const PhoneNumber = [].map.call(
+          document.querySelectorAll('.text-success.info-has-icon strong a'),
+          a => a.innerHTML
+        )
+        return PhoneNumber
+      })
+
+    const Address = await chromeless
+      .evaluate(() => {
+        const Address = [].map.call(
+          document.querySelectorAll('.info-has-icon span'),
           a => a.innerText
         )
-        return title
+        return Address
       })
 
-    content += title + '|' + danhmuc[0] + moigioi + '\n';
-    content = content.replace(/,/g,'');
-    quanly += '|' + danhmuc + '\n'
-  }
-  console.log('content',content);
-  console.log('quanly',quanly);
+    content += TenCoSo + '|' + PhoneNumber[1] + '|' + Address[1] + '\n';
 
-  fs.writeFileSync('Info222.txt', content);
-  fs.writeFileSync('Quanly222.txt', quanly);
+  }
+  console.log('content', content);
+
+  fs.writeFileSync('InfoHN.txt', content);
 
   await chromeless.end();
 }
