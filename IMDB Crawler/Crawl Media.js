@@ -1,6 +1,6 @@
 const { Chromeless } = require('chromeless');
 const fs = require('fs');
-var ActorLink = "https://www.imdb.com/name/nm0488953/";
+var ActorLink = 'https://www.imdb.com/name/nm0424060/';
 
 var ActorDownloadLink = new Array();
 
@@ -65,7 +65,7 @@ for(var i = 0; i < ActorMediaAll.length; i++){
   ActorDownloadLinkAll += ActorDownloadLink[3]
 }
 
-fs.writeFileSync('DownloadLink.txt', ActorDownloadLinkAll);
+fs.writeFileSync('Black Widow.txt', ActorDownloadLinkAll);
 
 // var content = "";
 // for(var i = 1; i<=2; i++){
