@@ -1,7 +1,6 @@
 const { Chromeless } = require('chromeless');
 const fs = require('fs');
 var ViCareHNLink = fs.readFileSync('LinkViCareHN.txt').toString().split("\n");
-
 async function run() {
   const chromeless = new Chromeless({
     lauchChrome: false,
