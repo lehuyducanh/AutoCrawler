@@ -15,16 +15,35 @@ async function run() {
     .evaluate(() => {
       const ActorLink = [].map.call(
         document.querySelectorAll('.odd .primary_photo a'),
-        a => a.href
+        a => a.href.substr(0, 36)
       )
       return ActorLink
     })
+  for (var i = 0; i < 3; i++) {
+    const ActorPage = await chromeless
+      .goto(ActorLink[i] + 'mediaindex')
+      .evaluate(() => {
+        const ActorPage = [].map.call(
+          document.querySelectorAll('.page_list a'),
+          a => a.href
+        )
+        return ActorPage;
+      })
+    
+    const ActorFile = await chromeless
+      .evaluate(() => {
+        const ActorFile = [].map.call(
+          document.querySelectorAll('.parent h3 a'),
+          a => a.innerText
+        )
+        return ActorFile;
+      })
+    ActorPage.push(ActorLink[i] + 'mediaindex');
 
-  for (var i = 0; i < ActorLink.length; i++) {
-  ActorLink[i] = ActorLink[i].substr(0, 36)
-}
-
-  fs.writeFileSync('ActorLink.txt', ActorLink);
+  }
+  console.log("Actor Name", ActorFile)
+  console.log("Actor Page", ActorPage)
+  fs.writeFileSync(ActorFile + '.txt', ActorLink);
   await chromeless.end();
 }
 

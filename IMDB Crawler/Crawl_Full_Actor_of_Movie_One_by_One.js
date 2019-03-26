@@ -31,9 +31,11 @@ async function run() {
     })
   MovieName[0] = MovieName[0].replace(':', '');
 
+
+
   //Go to Actor Link and Get Page
   var ActorPageAll = new Array();
-  for (var i = 0; i < 30; i++) {
+  for (var i = 0; i < 4; i++) {
     const ActorPage = await chromeless
       .goto(ActorLink[i] + 'mediaindex')
       .evaluate(() => {
@@ -43,19 +45,14 @@ async function run() {
         )
         return ActorPage
       })
-    
     ActorPage.unshift(ActorLink[i] + 'mediaindex');
-    ActorPageAll.push(...ActorPage)
-    }
-
-    //Lọc trùng ActorPage
-    let ActorPageAllnotClone = [...new Set(ActorPageAll)];
+    
 
        //Go to Page to Get Media
     var ActorMediaAll = new Array();
-    for (var i = 0; i < ActorPageAllnotClone.length; i++) {
+    for (var i = 0; i < ActorPage.length / 2; i++) {
       const ActorMedia = await chromeless
-        .goto(ActorPageAllnotClone[i])
+        .goto(ActorPage[i])
         .evaluate(() => {
           const ActorMedia = [].map.call(
             document.querySelectorAll('.media_index_thumb_list a'),
@@ -65,10 +62,13 @@ async function run() {
         })
       ActorMediaAll.push(...ActorMedia);
     }
+
+
     //Go to Media to Get Download Link
 
-    for (var i = 0; i < ActorMediaAll.length; i++) {
-      // for (var i = 0; i < 3; i++) {
+
+    // for (var i = 0; i < ActorMediaAll.length; i++) {
+      for (var i = 0; i < 3; i++) {
       const ActorDownloadLink = await chromeless
         .goto(ActorMediaAll[i])
         .evaluate(() => {
@@ -81,9 +81,8 @@ async function run() {
 
       ActorDownloadLinkAll += ActorDownloadLink[3]
     } 
-  
+  }
   fs.writeFileSync(MovieName + '.txt', ActorDownloadLinkAll);
-  await chromeless.end();
+    await chromeless.end();
 }
 run().catch(console.error.bind(console));
-
