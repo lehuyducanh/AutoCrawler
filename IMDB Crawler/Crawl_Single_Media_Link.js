@@ -1,14 +1,11 @@
 const { Chromeless } = require('chromeless');
 const fs = require('fs');
-var ActorLink = 'https://www.imdb.com/name/nm0000982/';
-
+var ActorLink = 'https://www.imdb.com/name/nm2962353/';
 async function run() {
   const chromeless = new Chromeless({
     lauchChrome: false,
     waitTimeout: 600000
   });
-
-
   //Go to Link and Get Page
   const ActorPage = await chromeless
     .goto(ActorLink + 'mediaindex')
@@ -40,7 +37,7 @@ async function run() {
         return ActorMedia
       })
 
-    ActorMediaAll.unshift(...ActorMedia);
+    ActorMediaAll.push(...ActorMedia);
   }
   // ActorMediaAll = ActorMediaAll.replace(/,/g,'');
   //Done Get Media
@@ -63,7 +60,7 @@ async function run() {
     ActorDownloadLinkAll += ActorDownloadLink[3]
   }
 
-  fs.writeFileSync('Thanos.txt', ActorDownloadLinkAll);
+  fs.writeFileSync('Mantis.txt', ActorDownloadLinkAll);
   await chromeless.end();
 }
 
