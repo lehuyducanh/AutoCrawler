@@ -1,7 +1,7 @@
 const { Chromeless } = require('chromeless');
 const fs = require('fs');
-var MovieLink = 'https://www.imdb.com/title/tt4154796/fullcredits';
-var ActorDownloadLinkAll = "";
+var MovieLink = 'https://www.imdb.com/search/name?gender=male,female&start=201&ref_=rlm';
+
 async function run() {
   const chromeless = new Chromeless({
     lauchChrome: false,
@@ -14,28 +14,18 @@ async function run() {
     .goto(MovieLink)
     .evaluate(() => {
       const ActorLink = [].map.call(
-        document.querySelectorAll('.odd .primary_photo a'),
+        document.querySelectorAll('.lister-item-image a'),
         a => a.href.substr(0, 36)
       )
       return ActorLink
     })
 
 
-  const MovieName = await chromeless
-    .evaluate(() => {
-      const MovieName = [].map.call(
-        document.querySelectorAll('.parent h3 a'),
-        a => a.innerText
-      )
-      return MovieName
-    })
-  MovieName[0] = MovieName[0].replace(':', '');
-
   //Go to Actor Link and Get Page
-  var ActorPageAll = new Array();
-  for (var i = 0; i < 30; i++) {
+
+  for (var i = 0; i < 50; i++) {
     const ActorPage = await chromeless
-      .goto(ActorLink[i] + 'mediaindex')
+      .goto(ActorLink[i] + '/mediaindex')
       .evaluate(() => {
         const ActorPage = [].map.call(
           document.querySelectorAll('.page_list a'),
@@ -43,19 +33,27 @@ async function run() {
         )
         return ActorPage
       })
-    
-    ActorPage.unshift(ActorLink[i] + 'mediaindex');
-    ActorPageAll.push(...ActorPage)
-    }
+    ActorPage.unshift(ActorLink[i] + '/mediaindex');
+
 
     //Lọc trùng ActorPage
-    let ActorPageAllnotClone = [...new Set(ActorPageAll)];
+    let ActorPagenotDup = [...new Set(ActorPage)];
 
-       //Go to Page to Get Media
+    //Get ActorName
+    const ActorName = await chromeless
+    .evaluate(() => {
+      const ActorName = [].map.call(
+        document.querySelectorAll('.parent h3 a'),
+        a => a.innerText
+      )
+      return ActorName
+    })
+
+    //Go to Page to Get Media
     var ActorMediaAll = new Array();
-    for (var i = 0; i < ActorPageAllnotClone.length; i++) {
+    for (var j = 0; j < ActorPagenotDup.length; j++) {
       const ActorMedia = await chromeless
-        .goto(ActorPageAllnotClone[i])
+        .goto(ActorPagenotDup[j])
         .evaluate(() => {
           const ActorMedia = [].map.call(
             document.querySelectorAll('.media_index_thumb_list a'),
@@ -66,11 +64,11 @@ async function run() {
       ActorMediaAll.push(...ActorMedia);
     }
     //Go to Media to Get Download Link
-
-    for (var i = 0; i < ActorMediaAll.length; i++) {
-      // for (var i = 0; i < 3; i++) {
+    var ActorDownloadLinkAll ="";
+    for (var k = 0; k < ActorMediaAll.length; k++) {
+      // for (var k = 0; k < 3; k++) {
       const ActorDownloadLink = await chromeless
-        .goto(ActorMediaAll[i])
+        .goto(ActorMediaAll[k])
         .evaluate(() => {
           const ActorDownloadLink = [].map.call(
             document.querySelectorAll('.pswp__img'),
@@ -80,9 +78,10 @@ async function run() {
         })
 
       ActorDownloadLinkAll += ActorDownloadLink[3]
-    } 
-  
-  fs.writeFileSync(MovieName + '.txt', ActorDownloadLinkAll);
+    }
+    fs.writeFileSync(ActorName + '.txt', ActorDownloadLinkAll);
+  }
+ 
   await chromeless.end();
 }
 run().catch(console.error.bind(console));
