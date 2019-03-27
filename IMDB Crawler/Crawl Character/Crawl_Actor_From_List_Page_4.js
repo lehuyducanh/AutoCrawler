@@ -5,7 +5,7 @@ var MovieLink = 'https://www.imdb.com/search/name?gender=male,female&start=151&r
 async function run() {
   const chromeless = new Chromeless({
     lauchChrome: false,
-    waitTimeout: 600000
+    waitTimeout: 60000000
   });
 
 
