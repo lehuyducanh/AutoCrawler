@@ -14,7 +14,7 @@ var MovieLinkAll = "";
       .evaluate(() => {
         const MovieLink = [].map.call(
             document.querySelectorAll('.overview-top h4 a'),
-            a => a.href
+            a => a.href + '\n'
         )
         return MovieLink;
       })
