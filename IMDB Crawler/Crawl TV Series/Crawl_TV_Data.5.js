@@ -11,7 +11,7 @@ async function run() {
 
   //Go to Movie Link and Get Actor Link
 
-  for (var i = 40; i < 80; i++) {
+  for (var i = 200; i < MovieLink.length; i++) {
     const MoviePage = await chromeless
       .goto(MovieLink[i] + 'mediaindex')
       .evaluate(() => {

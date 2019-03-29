@@ -11,7 +11,7 @@ async function run() {
 
   //Go to Movie Link and Get Actor Link
 
-  for (var i = 170; i < MovieLink.length; i++) {
+  for (var i = 80; i < 120; i++) {
     const MoviePage = await chromeless
       .goto(MovieLink[i] + 'mediaindex')
       .evaluate(() => {
@@ -36,7 +36,7 @@ async function run() {
       )
       return MovieName
     })
-    MovieName[0] = MovieName[0].replace(/([^a-zA-Z0-9()\s])/g, '');
+    MovieName[0] = MovieName[0].replace(/([^a-zA-Z0-9().&-\s])/g, '');
 
     //Go to Page to Get Media
     var MovieMediaAll = new Array();
@@ -68,7 +68,7 @@ async function run() {
 
         MovieDownloadLinkAll += MovieDownloadLink[3]
     }
-    fs.writeFileSync(MovieName[0] + '.txt', MovieDownloadLinkAll);
+    fs.writeFileSync(i + '.' + MovieName[0] + '.txt', MovieDownloadLinkAll);
   }
  
   await chromeless.end();
