@@ -11,7 +11,7 @@ async function run() {
 
   //Go to Movie Link and Get Download Link
 
-  for (var i = 6748; i < 7000; i++) {
+  for (var i = 3000; i < 3500; i++) {
     const MoviePage = await chromeless
       .goto(MovieLink[i])
       .evaluate(() => {
@@ -22,6 +22,9 @@ async function run() {
         return MoviePage
       })
 
+    //Filter All 1080p link
+    var Movie1080 = MoviePage.filter(MoviePage => MoviePage.indexOf('1080') > -1);
+
     //Get MovieName
     const MovieName = await chromeless
     .evaluate(() => {
@@ -31,11 +34,13 @@ async function run() {
       )
       return MovieName
     })
+
+    //Clear Special Character on MovieName
     MovieName[0] = MovieName[0].replace(/([^a-zA-Z0-9().&-\s])/g, '');
 
-    for (var j = 2; j < MoviePage.length; j+=3){
-      fs.appendFileSync(i + '. ' + MovieName[0] + '.txt', MoviePage[j]);
-    }
+    //Write File
+    fs.appendFileSync(i + '. ' + MovieName[0] + '.txt', Movie1080);
+
 
   }
  
