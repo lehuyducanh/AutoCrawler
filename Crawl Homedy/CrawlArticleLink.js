@@ -9,12 +9,12 @@ async function run() {
   });
 
 
-  for (var i = 1; i < 3; i++) {
+  for (var i = 1; i < 6619; i++) {
     const DLLink = await chromeless
       .goto('http://homedy.com/ban-nha-dat?p='+i)
       .evaluate(() => {
         const DLLink = [].map.call(
-          document.querySelectorAll('.info a'),
+          document.querySelectorAll('.item.color-red .thumb-image a'),
           a => a.href + '\n'
         )
    
