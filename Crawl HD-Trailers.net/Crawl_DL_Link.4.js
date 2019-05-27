@@ -40,7 +40,7 @@ async function run() {
 
     //Write File
     fs.appendFileSync(i + '. ' + MovieName[0] + '.txt', Movie1080);
-
+    fs.appendFileSync(MovieName[0] + '.txt', Movie1080);
 
   }
  

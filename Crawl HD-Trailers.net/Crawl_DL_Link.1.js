@@ -11,7 +11,7 @@ async function run() {
 
   //Go to Movie Link and Get Download Link
 
-  for (var i = 500; i < 1000; i++) {
+  for (var i = 1410; i < 2000; i++) {
     const MoviePage = await chromeless
       .goto(MovieLink[i])
       .evaluate(() => {
@@ -40,7 +40,7 @@ async function run() {
 
     //Write File
     fs.appendFileSync(i + '. ' + MovieName[0] + '.txt', Movie1080);
-
+    fs.appendFileSync(MovieName[0] + '.txt', Movie1080);
 
   }
  

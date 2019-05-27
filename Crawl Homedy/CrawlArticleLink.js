@@ -14,7 +14,7 @@ async function run() {
       .goto('http://homedy.com/ban-nha-dat?p='+i)
       .evaluate(() => {
         const DLLink = [].map.call(
-          document.querySelectorAll('.item.color-red .thumb-image a'),
+          document.querySelectorAll('.item .thumb-image a'),
           a => a.href + '\n'
         )
    
