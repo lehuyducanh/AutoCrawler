@@ -1,6 +1,6 @@
 const { Chromeless } = require('chromeless');
 const fs = require('fs');
-var ViCareHNLink = fs.readFileSync('LinkViCareHN.txt').toString().split("\n");
+var ViCareHNLink = fs.readFileSync('LinkLocationViCareHN.txt').toString().split("\n");
 async function run() {
   const chromeless = new Chromeless({
     lauchChrome: false,
@@ -40,9 +40,8 @@ async function run() {
     content += TenCoSo + '|' + PhoneNumber[1] + '|' + Address[1] + '\n';
 
   }
-  console.log('content', content);
 
-  fs.writeFileSync('InfoHN.txt', content);
+  fs.writeFileSync('InfoHN31052019.txt', content);
 
   await chromeless.end();
 }

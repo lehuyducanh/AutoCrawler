@@ -9,7 +9,7 @@ async function run() {
   });
   var content = "";
   var quanly = "";
-  for (var i = 0; i < BDSLink.length; i++) {
+  for (var i = 0; i < BDSLink.length; i+=2) {
     const PhoneMoigioi = await chromeless
       .goto(BDSLink[i])
       .evaluate(() => {
@@ -64,10 +64,10 @@ async function run() {
     content = content.replace(/,/g,'');
     
   }
-  console.log('content',content);
+  console.log(content);
   
 
-  fs.writeFileSync('DataHomedy25052019.txt', content);
+  fs.writeFileSync('DataHomedy27052019.txt', content);
 
 
   await chromeless.end();

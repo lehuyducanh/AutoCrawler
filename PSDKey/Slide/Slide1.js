@@ -7,22 +7,22 @@ async function run() {
 		waitTimeout: 600000
 		});
 var content = "";
-for(var i = 1; i<=391; i++){
+for(var i = 1; i<=100; i++){
     const links = await chromeless
     .goto('http://psdkeys.com/powerpoint/page/'+i+'/')
     .evaluate(() => {
          const links = [].map.call(
-        document.querySelectorAll('.btl'),
-        a => ({title: a.innerHTML})
+        document.querySelectorAll('.dpad h3 a'),
+        a => a.href + "\n"
       )
-      return JSON.stringify(links)
+      return links
   })
-   .scrollTo(0, 1000)
+
    content += links; 
 }
 console.log(content);
 	
-fs.writeFileSync('SlideLink-1.txt', content);
+fs.writeFileSync('SlideLink-29052019.txt', content);
 	
 await chromeless.end();
 }
