@@ -9,9 +9,9 @@ async function run() {
   });
 
 
-  for (var i = 1; i < 14; i++) {
+  for (var i = 1; i < 5; i++) {
     const DLLink = await chromeless
-      .goto('https://sachvui.com/the-loai/kinh-te-quan-ly.html/'+i)
+      .goto('https://sachvui.com/the-loai/marketing-ban-hang.html/'+i)
       .evaluate(() => {
         const DLLink = [].map.call(
           document.querySelectorAll('.col-xs-6.col-md-3.col-sm-3.ebook h5 a'),
@@ -22,7 +22,7 @@ async function run() {
       })
       AllDownloadLink += DLLink
   }
-  fs.appendFileSync("KinhteQuanly.txt", AllDownloadLink);
+  fs.appendFileSync("Marketing.txt", AllDownloadLink);
   await chromeless.end();
 }
 run().catch(console.error.bind(console));

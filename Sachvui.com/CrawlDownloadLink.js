@@ -1,6 +1,6 @@
 const { Chromeless } = require('chromeless');
 const fs = require('fs');
-var InstaLink = fs.readFileSync('TamlyKiNangSong.txt').toString().split("\n");
+var InstaLink = fs.readFileSync('Marketing.txt').toString().split("\n");
 var AllDownloadLink = "";
 async function run() {
   const chromeless = new Chromeless({
@@ -22,7 +22,7 @@ async function run() {
       })
       AllDownloadLink += DLLink
   }
-  fs.appendFileSync("TamlyKiNangSongDownloadLink.txt", AllDownloadLink);
+  fs.appendFileSync("MarketingDownloadLink.txt", AllDownloadLink);
   await chromeless.end();
 }
 run().catch(console.error.bind(console));
