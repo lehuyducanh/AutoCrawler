@@ -15,20 +15,19 @@ async function run() {
     .goto(BDSLink[i])
       .wait(2000)
       .scrollTo(0,1000)
-      .wait('.flex.items-center._1z1CEl .JFOy4z._20XOUy')
-      // .wait(2000)
+      .wait(1000)
       .evaluate(() => {
         const ProductName = [].map.call(
-          document.querySelectorAll('.flex.items-center._1z1CEl .JFOy4z._20XOUy'),
-          a => a.outerHTML + '\n'
+          document.querySelectorAll('._3n5NQx'),
+          a => a.innerText + '\n'
         )
         return ProductName
       })
   
-       content += ProductName[3]
+       content += ProductName
   
   }
-  fs.writeFileSync('Category5.txt',content);
+  fs.writeFileSync('Price.txt',content);
  
  
 

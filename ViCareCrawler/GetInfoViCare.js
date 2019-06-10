@@ -1,6 +1,6 @@
 const { Chromeless } = require('chromeless');
 const fs = require('fs');
-var ViCareHNLink = fs.readFileSync('LinkLocationViCareHN.txt').toString().split("\n");
+var ViCareHNLink = fs.readFileSync('LinkBSViCareHN.txt').toString().split("\n");
 async function run() {
   const chromeless = new Chromeless({
     lauchChrome: false,
@@ -10,11 +10,11 @@ async function run() {
 
   for (var i = 0; i < ViCareHNLink.length; i++) {
     const TenCoSo = await chromeless
-      .goto(ViCareHNLink[i])
+      .goto(ViCareHNLink[i]+'#!thong-tin-chi-tiet')
       .evaluate(() => {
         const TenCoSo = [].map.call(
-          document.querySelectorAll('.body h1 span'),
-          a => a.innerHTML
+          document.querySelectorAll('.body h1'),
+          a => a.innerText
         )
         return TenCoSo
       })
@@ -22,7 +22,7 @@ async function run() {
     const PhoneNumber = await chromeless
       .evaluate(() => {
         const PhoneNumber = [].map.call(
-          document.querySelectorAll('.text-success.info-has-icon strong a'),
+          document.querySelectorAll('.collapsible-container.collapsible-block.expanded.screen-lg'),
           a => a.innerHTML
         )
         return PhoneNumber
@@ -31,17 +31,17 @@ async function run() {
     const Address = await chromeless
       .evaluate(() => {
         const Address = [].map.call(
-          document.querySelectorAll('.info-has-icon span'),
+          document.querySelectorAll('.cms p'),
           a => a.innerText
         )
         return Address
       })
 
-    content += TenCoSo + '|' + PhoneNumber[1] + '|' + Address[1] + '\n';
+    content += TenCoSo + '|' + PhoneNumber[1] + '\n';
 
   }
 
-  fs.writeFileSync('InfoHN06062019.txt', content);
+  fs.writeFileSync('InfoBSHN10062019+Chucvu.txt', content);
 
   await chromeless.end();
 }
